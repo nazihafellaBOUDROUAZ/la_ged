@@ -1,27 +1,30 @@
-// routes/employees.js
 const express = require('express');
 const router = express.Router();
-const db = require('../db'); // Assurez-vous que le fichier db.js est bien configuré
+const db = require('../db');
+const bcrypt = require('bcrypt'); // ✅ import bcrypt
 
 // Ajouter un nouvel employé
 router.post("/", async (req, res) => {
-  const { name, department, email, password, role } = req.body;
+  const { name, username, department, email, password, role } = req.body;
 
-  if (!name || !department || !email || !password || !role) {
+  if (!name || !username || !department || !email || !password || !role) {
     return res.status(400).json({ message: "Champs obligatoires manquants" });
   }
 
   try {
-    // Vérification de nom existant
-    const [existing] = await db.query("SELECT * FROM employees WHERE name = ?", [name]);
+    // Vérification de username existant
+    const [existing] = await db.query("SELECT * FROM employees WHERE username = ?", [username]);
     if (existing.length > 0) {
-      return res.status(409).json({ message: "Nom déjà utilisé" });
+      return res.status(409).json({ message: "Nom d'utilisateur déjà utilisé" });
     }
+
+    // ✅ Hash the password before saving
+    const hashedPassword = await bcrypt.hash(password, 10);
 
     // Insertion
     const [result] = await db.query(
-      "INSERT INTO employees (name, department, email, password, role) VALUES (?, ?, ?, ?, ?)",
-      [name, department, email, password, role]
+      "INSERT INTO employees (name, username, department, email, password, role) VALUES (?, ?, ?, ?, ?, ?)",
+      [name, username, department, email, hashedPassword, role]
     );
 
     const insertedId = result.insertId;

@@ -13,6 +13,7 @@ export default function UsersAdmin() {
   const [selectedDept, setSelectedDept] = useState("All");
   const [newEmployee, setNewEmployee] = useState({
     name: "",
+    username: "", // ✅ Added username
     department: "",
     email: "",
     password: "",
@@ -45,6 +46,7 @@ export default function UsersAdmin() {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (!newEmployee.name.trim()) errors.name = "Nom requis";
+    if (!newEmployee.username.trim()) errors.username = "Nom d'utilisateur requis"; // ✅ Validate username
     if (!newEmployee.department.trim()) errors.department = "Département requis";
     if (!newEmployee.email.trim()) {
       errors.email = "Email requis";
@@ -54,11 +56,11 @@ export default function UsersAdmin() {
     if (!newEmployee.password.trim()) errors.password = "Mot de passe requis";
     if (!newEmployee.role.trim()) errors.role = "Rôle requis";
 
-    const isDuplicateName = employees.some(
-      (emp) => emp.name.toLowerCase() === newEmployee.name.toLowerCase()
+    const isDuplicateUsername = employees.some(
+      (emp) => emp.username && emp.username.toLowerCase() === newEmployee.username.toLowerCase()
     );
-    if (isDuplicateName) {
-      errors.name = "Nom déjà utilisé par un autre employé";
+    if (isDuplicateUsername) {
+      errors.username = "Nom d'utilisateur déjà utilisé par un autre employé";
     }
 
     if (Object.keys(errors).length > 0) {
@@ -76,6 +78,7 @@ export default function UsersAdmin() {
         setEmployees([...employees, data]);
         setNewEmployee({
           name: "",
+          username: "",
           department: "",
           email: "",
           password: "",
@@ -106,7 +109,7 @@ export default function UsersAdmin() {
   return (
     <div className="employee-page">
       <Sidebar>
-        <h2 className="title">Employés</h2>
+        <h1 className="title">Employés </h1>
 
         <div className="actions">
           <div className="search-box">
@@ -138,6 +141,18 @@ export default function UsersAdmin() {
                 }
               />
               {formErrors.name && <span className="error-text">{formErrors.name}</span>}
+
+              <input
+                type="text"
+                placeholder="Nom d'utilisateur"
+                value={newEmployee.username}
+                onChange={(e) =>
+                  setNewEmployee({ ...newEmployee, username: e.target.value })
+                }
+              />
+              {formErrors.username && (
+                <span className="error-text">{formErrors.username}</span>
+              )}
 
               <select
                 value={newEmployee.department}
@@ -223,6 +238,7 @@ export default function UsersAdmin() {
               <tr>
                 <th>N°</th>
                 <th>Nom</th>
+                <th>Nom d'utilisateur</th> {/* ✅ Add column */}
                 <th>Département</th>
                 <th>Email</th>
                 <th>Rôle</th>
@@ -232,7 +248,7 @@ export default function UsersAdmin() {
             <tbody>
               {filteredEmployees.length === 0 ? (
                 <tr>
-                  <td colSpan="6" className="empty-row">
+                  <td colSpan="7" className="empty-row">
                     Aucun employé pour l’instant.
                   </td>
                 </tr>
@@ -241,6 +257,7 @@ export default function UsersAdmin() {
                   <tr key={emp.id}>
                     <td>{index + 1}</td>
                     <td className="emp-name">{emp.name}</td>
+                    <td>{emp.username}</td> {/* ✅ Show username */}
                     <td>{emp.department}</td>
                     <td>{emp.email}</td>
                     <td>{emp.role || "Non défini"}</td>

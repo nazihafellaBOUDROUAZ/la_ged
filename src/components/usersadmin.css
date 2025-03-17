@@ -1,7 +1,15 @@
-.employee-page h2{
+.employee-page h1{
+  font-size: 35px;
   color: #009577;
-  margin-top: 25px;
-  margin-left: 25px;
+  position: fixed;           /* stays at the top */
+  left: 230px;
+  top:0;
+  right: 0;            /* stays above everything else */
+  background-color: white;
+  border-bottom: 1px solid #ccc; /* simple gray bottom border */
+  box-shadow: 6 2px 4px ; /* optional soft shadow */
+  box-shadow: 0 2px 4px rgba(197, 11, 11, 0.05); /* optional soft shadow */
+  padding: 10px 20px;
 }
 
 .actions{
@@ -10,6 +18,7 @@
 }
 
 .actions .search-box input{
+  margin-top: 60px;
   border-radius: 20px;
   width: 90%;
   justify-content: center;
