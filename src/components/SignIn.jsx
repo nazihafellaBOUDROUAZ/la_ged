@@ -1,58 +1,91 @@
-import React from "react";
-import * as Components from './Components';
+import "./signin.css";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function SignIn() {
-    const [signIn, toggle] = React.useState(true);
-     return(
-         <Components.Container>
-             <Components.SignUpContainer signinIn={signIn}>
-                 <Components.Form>
-                     <Components.Title>Sign in en tant que Utilisateur</Components.Title>
-                     <Components.Input type='email' placeholder='Email' />
-                     <Components.Input type='password' placeholder='Password' />
-                     <Components.Anchor href='#'>Mot de passe oublié ?</Components.Anchor>
-                     <Components.Button>Sign In</Components.Button>
-                 </Components.Form>
-             </Components.SignUpContainer>
+    const [signIn, setSignIn] = useState(true); // État pour basculer entre Admin et Utilisateur
+    const [nomdutilisateur, setNomdutilisateur] = useState("");
+    const [password, setPassword] = useState("");
+    const navigate = useNavigate();
 
-             <Components.SignInContainer signinIn={signIn}>
-                  <Components.Form>
-                      <Components.Title>Sign in en tant que Admin</Components.Title>
-                      <Components.Input type='email' placeholder='Email' />
-                      <Components.Input type='password' placeholder='Password' />
-                      <Components.Anchor href='#'>Mot de passe oublié ?</Components.Anchor>
-                      <Components.Button>Sigin In</Components.Button>
-                  </Components.Form>
-             </Components.SignInContainer>
+    // 📌 Connexion pour Admin
+    const handleSubmitAdmin = async (e) => {
+        e.preventDefault();
 
-             <Components.OverlayContainer signinIn={signIn}>
-                 <Components.Overlay signinIn={signIn}>
+        const response = await fetch("http://localhost:5000/signin-admin", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ nomdutilisateur, password }),
+        });
 
-                 <Components.LeftOverlayPanel signinIn={signIn}>
-                     <Components.Title1>Welcome Back!</Components.Title1>
-                     <Components.Paragraph>
-                        Accédez à vos documents en toute sécurité et simplicité.
-                     </Components.Paragraph>
-                     <Components.GhostButton onClick={() => toggle(true)}>
-                         Admin
-                     </Components.GhostButton>
-                     </Components.LeftOverlayPanel>
+        const data = await response.json();
+        if (response.status === 201 || response.status === 200) {
+            alert(data.message);
+            localStorage.setItem("token", data.token);
+            navigate("/dashboard");
+        } else {
+            alert(data.message);
+        }
+    };
 
-                     <Components.RightOverlayPanel signinIn={signIn}>
-                       <Components.Title1>Welcome!</Components.Title1>
-                       <Components.Paragraph>
-                       Accédez à vos documents en toute sécurité et simplicité.
-                       </Components.Paragraph>
-                           <Components.GhostButton onClick={() => toggle(false)}>
-                               Utilisateur
-                           </Components.GhostButton> 
-                     </Components.RightOverlayPanel>
- 
-                 </Components.Overlay>
-             </Components.OverlayContainer>
+    return (
+        <div className="ggg">
+            <div className={`container ${signIn ? "" : "sign-in-mode"}`}>
+                {/* 🔵 Formulaire pour Utilisateur */}
+                <div className="sign-up-container form-container">
+                    <form className="Form">
+                        <h1 className="Title">Se connecter en tant qu'Utilisateur</h1>
+                        <input type="text" placeholder="Nom d'utilisateur" />
+                        <input type="password" placeholder="Mot de passe" />
+                        <button>Sign In</button>
+                    </form>
+                </div>
 
-         </Components.Container>
-     )
+                {/* 🔴 Formulaire pour Admin */}
+                <div className="sign-in-container form-container">
+                    <form className="Form" onSubmit={handleSubmitAdmin}>
+                        <h1 className="Title">Se connecter en tant qu'Admin</h1>
+                        <input
+                            type="text"
+                            placeholder="Nom d'utilisateur"
+                            value={nomdutilisateur}
+                            onChange={(e) => setNomdutilisateur(e.target.value)}
+                            required
+                        />
+                        <input
+                            type="password"
+                            placeholder="Mot de passe"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
+                        />
+                        <button type="submit">Sign In</button>
+                    </form>
+                </div>
+
+                {/* Effet flip-flop */}
+                <div className="overlay-container">
+                    <div className="overlay">
+                        <div className="overlay-left overlay-panel">
+                            <h1 className="Title1">Bienvenue !</h1>
+                            <p>Accédez à vos documents en toute sécurité.</p>
+                            <button className="ghost" onClick={() => setSignIn(true)}>
+                                Admin
+                            </button>
+                        </div>
+
+                        <div className="overlay-right overlay-panel">
+                            <h1 className="Title1">Bienvenue !</h1>
+                            <p>Accédez à vos documents en toute sécurité.</p>
+                            <button className="ghost" onClick={() => setSignIn(false)}>
+                                Utilisateur
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
 }
 
 export default SignIn;
