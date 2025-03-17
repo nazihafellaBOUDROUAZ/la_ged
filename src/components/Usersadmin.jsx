@@ -1,9 +1,11 @@
+// UsersAdmin.jsx
 import React, { useEffect, useState } from "react";
 import { FaSearch, FaTrash } from "react-icons/fa";
 import "./usersadmin.css";
 import Sidebar from "./Sidebar";
 
 const departments = ["All", "RH", "INFO", "HHH", "JHBN", "DFGHJ"];
+const roles = ["user", "admin"];
 
 export default function UsersAdmin() {
   const [employees, setEmployees] = useState([]);
@@ -14,18 +16,23 @@ export default function UsersAdmin() {
     department: "",
     email: "",
     password: "",
+    role: "",
   });
   const [formErrors, setFormErrors] = useState({});
   const [showForm, setShowForm] = useState(false);
 
   useEffect(() => {
+    fetchEmployees();
+  }, []);
+
+  const fetchEmployees = () => {
     fetch("http://localhost:5000/api/employees")
       .then((res) => res.json())
       .then((data) => setEmployees(data))
       .catch((err) =>
         console.error("Erreur lors du chargement des employés:", err)
       );
-  }, []);
+  };
 
   const filteredEmployees = employees.filter((emp) => {
     const matchDept = selectedDept === "All" || emp.department === selectedDept;
@@ -45,8 +52,8 @@ export default function UsersAdmin() {
       errors.email = "Email invalide";
     }
     if (!newEmployee.password.trim()) errors.password = "Mot de passe requis";
+    if (!newEmployee.role.trim()) errors.role = "Rôle requis";
 
-    // ✅ Check for duplicate name
     const isDuplicateName = employees.some(
       (emp) => emp.name.toLowerCase() === newEmployee.name.toLowerCase()
     );
@@ -67,10 +74,15 @@ export default function UsersAdmin() {
       .then((res) => res.json())
       .then((data) => {
         setEmployees([...employees, data]);
-        setNewEmployee({ name: "", department: "", email: "", password: "" });
+        setNewEmployee({
+          name: "",
+          department: "",
+          email: "",
+          password: "",
+          role: "",
+        });
         setFormErrors({});
         setShowForm(false);
-        window.location.reload(); // Optional
       })
       .catch((err) => {
         console.error("Erreur lors de l'ajout:", err);
@@ -125,27 +137,20 @@ export default function UsersAdmin() {
                   setNewEmployee({ ...newEmployee, name: e.target.value })
                 }
               />
-              {formErrors.name && (
-                <span className="error-text">{formErrors.name}</span>
-              )}
+              {formErrors.name && <span className="error-text">{formErrors.name}</span>}
 
               <select
                 value={newEmployee.department}
                 onChange={(e) =>
-                  setNewEmployee({
-                    ...newEmployee,
-                    department: e.target.value,
-                  })
+                  setNewEmployee({ ...newEmployee, department: e.target.value })
                 }
               >
                 <option value="">-- Sélectionner un département --</option>
-                {departments
-                  .filter((dept) => dept !== "All")
-                  .map((dept) => (
-                    <option key={dept} value={dept}>
-                      {dept}
-                    </option>
-                  ))}
+                {departments.filter((dept) => dept !== "All").map((dept) => (
+                  <option key={dept} value={dept}>
+                    {dept}
+                  </option>
+                ))}
               </select>
               {formErrors.department && (
                 <span className="error-text">{formErrors.department}</span>
@@ -160,9 +165,7 @@ export default function UsersAdmin() {
                   setNewEmployee({ ...newEmployee, email: e.target.value })
                 }
               />
-              {formErrors.email && (
-                <span className="error-text">{formErrors.email}</span>
-              )}
+              {formErrors.email && <span className="error-text">{formErrors.email}</span>}
 
               <input
                 type="password"
@@ -177,12 +180,24 @@ export default function UsersAdmin() {
                 <span className="error-text">{formErrors.password}</span>
               )}
 
+              <select
+                value={newEmployee.role}
+                onChange={(e) =>
+                  setNewEmployee({ ...newEmployee, role: e.target.value })
+                }
+              >
+                <option value="">-- Sélectionner un rôle --</option>
+                {roles.map((role) => (
+                  <option key={role} value={role}>
+                    {role}
+                  </option>
+                ))}
+              </select>
+              {formErrors.role && <span className="error-text">{formErrors.role}</span>}
+
               <div className="form-buttons">
                 <button onClick={handleAddEmployee}>Ajouter</button>
-                <button
-                  className="cancel-btn"
-                  onClick={() => setShowForm(false)}
-                >
+                <button className="cancel-btn" onClick={() => setShowForm(false)}>
                   Annuler
                 </button>
               </div>
@@ -194,9 +209,7 @@ export default function UsersAdmin() {
           {departments.map((dept) => (
             <button
               key={dept}
-              className={`filter-btn ${
-                selectedDept === dept ? "active" : ""
-              }`}
+              className={`filter-btn ${selectedDept === dept ? "active" : ""}`}
               onClick={() => setSelectedDept(dept)}
             >
               {dept}
@@ -212,13 +225,14 @@ export default function UsersAdmin() {
                 <th>Nom</th>
                 <th>Département</th>
                 <th>Email</th>
+                <th>Rôle</th>
                 <th>Supprimer</th>
               </tr>
             </thead>
             <tbody>
               {filteredEmployees.length === 0 ? (
                 <tr>
-                  <td colSpan="5" className="empty-row">
+                  <td colSpan="6" className="empty-row">
                     Aucun employé pour l’instant.
                   </td>
                 </tr>
@@ -229,6 +243,7 @@ export default function UsersAdmin() {
                     <td className="emp-name">{emp.name}</td>
                     <td>{emp.department}</td>
                     <td>{emp.email}</td>
+                    <td>{emp.role || "Non défini"}</td>
                     <td className="actions-cell">
                       <button
                         className="delete-btn"

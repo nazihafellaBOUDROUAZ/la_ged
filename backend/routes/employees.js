@@ -1,87 +1,59 @@
 // routes/employees.js
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const db = require("../db");
-const bcrypt = require("bcrypt");
+const db = require('../db'); // Assurez-vous que le fichier db.js est bien configuré
 
-// 🔹 GET all employees (❗Exclude password)
-router.get("/", async (req, res) => {
-  try {
-    const [rows] = await db.query("SELECT id, name, department, email FROM employees");
-    res.json(rows);
-  } catch (err) {
-    console.error("GET error:", err);
-    res.status(500).json({ message: "Failed to fetch employees" });
-  }
-});
-
-// 🔹 POST add employee (Check for unique name + hash password)
+// Ajouter un nouvel employé
 router.post("/", async (req, res) => {
-  const { name, department, email, password } = req.body;
+  const { name, department, email, password, role } = req.body;
 
-  if (!name || !department || !email || !password) {
-    return res.status(400).json({ message: "All fields are required." });
+  if (!name || !department || !email || !password || !role) {
+    return res.status(400).json({ message: "Champs obligatoires manquants" });
   }
 
   try {
-    // Check if employee with same name exists
+    // Vérification de nom existant
     const [existing] = await db.query("SELECT * FROM employees WHERE name = ?", [name]);
     if (existing.length > 0) {
-      return res.status(409).json({ message: "An employee with this name already exists." });
+      return res.status(409).json({ message: "Nom déjà utilisé" });
     }
 
-    // Hash the password
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    // Insert employee
-    await db.query(
-      "INSERT INTO employees (name, department, email, password) VALUES (?, ?, ?, ?)",
-      [name, department, email, hashedPassword]
+    // Insertion
+    const [result] = await db.query(
+      "INSERT INTO employees (name, department, email, password, role) VALUES (?, ?, ?, ?, ?)",
+      [name, department, email, password, role]
     );
 
-    res.json({ message: "Employee added successfully" });
+    const insertedId = result.insertId;
+    const [newEmployee] = await db.query("SELECT * FROM employees WHERE id = ?", [insertedId]);
+
+    res.json(newEmployee[0]);
   } catch (err) {
-    console.error("POST error:", err);
-    res.status(500).json({ message: "Error adding employee" });
+    console.error("Erreur lors de l'ajout de l'employé:", err);
+    res.status(500).json({ message: "Erreur serveur" });
   }
 });
 
-// 🔹 DELETE employee
+// Obtenir tous les employés
+router.get("/", async (req, res) => {
+  try {
+    const [employees] = await db.query("SELECT * FROM employees");
+    res.json(employees);
+  } catch (err) {
+    console.error("Erreur lors de la récupération des employés:", err);
+    res.status(500).json({ message: "Erreur serveur" });
+  }
+});
+
+// Supprimer un employé par ID
 router.delete("/:id", async (req, res) => {
-  const { id } = req.params;
-
+  const employeeId = req.params.id;
   try {
-    await db.query("DELETE FROM employees WHERE id = ?", [id]);
-    res.json({ message: "Employee deleted" });
+    await db.query("DELETE FROM employees WHERE id = ?", [employeeId]);
+    res.json({ message: "Employé supprimé" });
   } catch (err) {
-    console.error("DELETE error:", err);
-    res.status(500).json({ message: "Error deleting employee" });
-  }
-});
-
-// 🔹 PUT edit employee (optional password update)
-router.put("/:id", async (req, res) => {
-  const { id } = req.params;
-  const { name, department, email, password } = req.body;
-
-  try {
-    if (password) {
-      const hashedPassword = await bcrypt.hash(password, 10);
-      await db.query(
-        "UPDATE employees SET name = ?, department = ?, email = ?, password = ? WHERE id = ?",
-        [name, department, email, hashedPassword, id]
-      );
-    } else {
-      await db.query(
-        "UPDATE employees SET name = ?, department = ?, email = ? WHERE id = ?",
-        [name, department, email, id]
-      );
-    }
-
-    res.json({ message: "Employee updated" });
-  } catch (err) {
-    console.error("PUT error:", err);
-    res.status(500).json({ message: "Error updating employee" });
+    console.error("Erreur lors de la suppression de l'employé:", err);
+    res.status(500).json({ message: "Erreur serveur" });
   }
 });
 
