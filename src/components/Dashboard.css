@@ -1,5 +1,5 @@
 .entete-admin{
-    font-size: 35px;
+    font-size: 33px;
     color: #009577;
     position: fixed;           /* stays at the top */
     left: 230px;
@@ -7,22 +7,25 @@
     right: 0;            /* stays above everything else */
     background-color: white;
     border-bottom: 1px solid #ccc; /* simple gray bottom border */
-    box-shadow: 6 2px 4px ; /* optional soft shadow */
     box-shadow: 0 2px 4px rgba(197, 11, 11, 0.05); /* optional soft shadow */
     padding: 10px 20px;
   }
   .dash-section{
-    margin-top: 90px;
+    margin-top: 9%;
     margin-left: 20px;
     display: flex;
     justify-content: space-between;
-
+    
   }
   .about-us{
     display: flex;
-    background-color: #cccccc21;
+    justify-content: space-evenly;
+    background-color: #cccccc44;
     border-radius: 20px;
     padding: 15px 9px 1px 15px;
+  }
+  .left-sec{
+    width: 70%;
   }
   .about-us h2{
     font-size: 19px;
@@ -149,4 +152,8 @@
     background-color: #f7f7f7;
     color: #444;
   }
-  
+  .users-recent{
+    color: #00261C;
+    margin-top: 30px;
+    max-width: 90%;
+  }

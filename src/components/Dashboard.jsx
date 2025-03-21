@@ -45,7 +45,7 @@ function Dashboard() {
               <div className='paragraphe'>
                 <h2>Bienvenu A</h2>
                 <h3>Ton G.E.D :</h3>
-                <p>OU TU VAS COLABORER ET TROUVER TOUS <br /> VOS FICHIERS EN FORMAT <br /> ELECTRONIQUE</p>
+                <p>OU TU VAS COLABORER ET TROUVER TOUS VOS FICHIERS EN FORMAT <br /> ELECTRONIQUE</p>
                 <button className='savoire-plus'>Savoir plus</button>
               </div>
               <div>
@@ -54,8 +54,8 @@ function Dashboard() {
             </div>
 
             {/* ✅ Tableau des utilisateurs récents */}
+            <h3 className='users-recent'>Utilisateurs Récents</h3>
             <div className='recent-users'>
-              <h3>Utilisateurs Récents</h3>
               <table className="recent-users-table">
                 <thead>
                   <tr>
