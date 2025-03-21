@@ -1,23 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import Sidebar from "./Sidebar";
-import "./dashboard.css";
+import "./Dashboard.css";
 import { FaCrown, FaUsers, FaFileAlt } from 'react-icons/fa';
 import img from "../pictures/dash-imj.png";
 
 function Dashboard() {
-  // ✅ State pour stocker les statistiques
   const [stats, setStats] = useState({
     totalAdmins: 0,
     totalUsers: 0,
     totalDocuments: 0
   });
 
-  // ✅ Récupération dynamique depuis le backend
+  const [recentUsers, setRecentUsers] = useState([]); // ✅ Nouvel état pour les utilisateurs récents
+
   useEffect(() => {
+    // ✅ Récupération des statistiques
     fetch("http://localhost:5000/api/dashboard/stats")
       .then((res) => res.json())
       .then((data) => {
-        console.log("Données récupérées :", data);
         setStats({
           totalAdmins: data.totalAdmins || 0,
           totalUsers: data.totalUsers || 0,
@@ -25,6 +25,14 @@ function Dashboard() {
         });
       })
       .catch((err) => console.error("Erreur récupération stats:", err));
+
+    // ✅ Récupération des 5 derniers utilisateurs
+    fetch("http://localhost:5000/api/dashboard/recent-users")
+      .then((res) => res.json())
+      .then((data) => {
+        setRecentUsers(data);
+      })
+      .catch((err) => console.error("Erreur récupération utilisateurs récents:", err));
   }, []);
 
   return (
@@ -44,9 +52,33 @@ function Dashboard() {
                 <img src={img} alt="Dashboard illustration" />
               </div>
             </div>
+
+            {/* ✅ Tableau des utilisateurs récents */}
             <div className='recent-users'>
-              {/* Tu pourras ici afficher les users récents dynamiquement plus tard */}
-            </div>  
+              <h3>Utilisateurs Récents</h3>
+              <table className="recent-users-table">
+                <thead>
+                  <tr>
+                    <th>Nom</th>
+                    <th>Username</th>
+                    <th>Département</th>
+                    <th>Email</th>
+                    <th>Rôle</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {recentUsers.map((user) => (
+                    <tr key={user.id}>
+                      <td>{user.name}</td>
+                      <td>{user.username}</td>
+                      <td>{user.department}</td>
+                      <td>{user.email}</td>
+                      <td>{user.role}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
 
           {/* RIGHT SECTION */}

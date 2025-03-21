@@ -118,3 +118,35 @@
     background-color: #d8b561;
   }
   
+  .recent-users {
+    margin-top: 25px;
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+  
+  .recent-users h3 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    color: #333;
+  }
+  
+  .recent-users-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+  }
+  
+  .recent-users-table th,
+  .recent-users-table td {
+    padding: 10px 12px;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+  }
+  
+  .recent-users-table th {
+    background-color: #f7f7f7;
+    color: #444;
+  }
+  
