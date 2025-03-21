@@ -54,7 +54,7 @@ function Dashboard() {
             </div>
 
             {/* ✅ Tableau des utilisateurs récents */}
-            <h3 className='users-recent'>Utilisateurs Récents</h3>
+            <h3 className='users-recent'>Utilisateurs Récents : </h3>
             <div className='recent-users'>
               <table className="recent-users-table">
                 <thead>

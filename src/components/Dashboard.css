@@ -58,9 +58,10 @@
   .right-sec{
    background-color:#009577b8;
    border-radius: 20px;
-   margin-right: 20px;
+   margin-right: 30px;
    margin-top: 40px;
    padding: 2%;
+   height: fit-content;
   }
   .activities-title {
     font-size: 24px;
@@ -126,14 +127,9 @@
     background-color: #fff;
     padding: 15px;
     border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.37);
   }
   
-  .recent-users h3 {
-    font-size: 1.2rem;
-    margin-bottom: 10px;
-    color: #333;
-  }
   
   .recent-users-table {
     width: 100%;
@@ -156,4 +152,7 @@
     color: #00261C;
     margin-top: 30px;
     max-width: 90%;
+     font-size: 1.2rem;
+    margin-bottom: 10px;
   }
+  

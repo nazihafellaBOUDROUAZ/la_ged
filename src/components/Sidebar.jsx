@@ -12,6 +12,7 @@ import notification from "../pictures/notification.png";
 import Setting from "../pictures/Setting.png";
 import support from "../pictures/support.png";
 import report from "../pictures/report.png";
+import doc from "../pictures/doc.png";
 
 export default function Sidebar({ children }) {
   const [open, setOpen] = useState(true);
@@ -20,7 +21,7 @@ export default function Sidebar({ children }) {
   const Menus = useMemo(() => [
     { title: "Dashboard", src: home, path: "/dashboard" },
     { title: "Departements", src: todo, path: "/ProjectsList" },
-    { title: "Documents ", src: check, path: "/Todo" },
+    { title: "Documents ", src: doc, path: "/documents" },
     { title: "Utilisateurs", src: check, path: "/Usersadmin" },
     { title: "Calendar", src: Calendar, path: "/calendar" },
     { title: "Notifications", src: notification, gap: true, path: "/notifications" },
