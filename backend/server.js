@@ -13,12 +13,12 @@ const app = express();
 
 // Port sur lequel le serveur backend va écouter
 const PORT = 5000;
-
+const dashboardRoutes = require('./routes/dashboard');
 // ✅ Application des middlewares avant les routes
 
 // CORS : autorise les échanges entre le frontend (ex: React sur localhost:3000) et le backend
 app.use(cors());
-
+app.use('/api/dashboard', dashboardRoutes);
 // Middleware pour parser les données JSON reçues dans les requêtes
 app.use(express.json());
 
