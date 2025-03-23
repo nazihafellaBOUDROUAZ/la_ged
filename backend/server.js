@@ -20,6 +20,8 @@ app.use(express.json());
 const employeeRoutes = require('./routes/employees');
 const authRoutes = require('./routes/auth');
 const dashboardRoutes = require('./routes/dashboard');
+const fileRoutes = require('./routes/files');
+
 
 // ✅ Application des routes
 // Route de connexion (login) => accessible à partir de "/signin"
@@ -30,7 +32,8 @@ app.use('/api/employees', employeeRoutes);
 
 // Routes du dashboard (statistiques)
 app.use('/api/dashboard', dashboardRoutes);
-
+// Routes du documents
+app.use('/api/files', fileRoutes);
 // ✅ Démarrage du serveur
 app.listen(PORT, () => {
   console.log(`✅ Serveur backend lancé sur http://localhost:${PORT}`);

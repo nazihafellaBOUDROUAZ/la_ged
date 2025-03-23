@@ -4,6 +4,7 @@ import SignIn from "./components/SignIn";
 import Welcome from "./components/Welcome";
 import Dashboard from "./components/Dashboard";
 import Usersadmin from "./components/Usersadmin";
+import Documents from "./components/Documents";
 import "./App.css";
 
 function App() {
@@ -23,6 +24,10 @@ function App() {
     {
       path: "/usersadmin",
       element: <Usersadmin />,
+    },
+    {
+      path: "/documents",
+      element: <Documents />,
     },
   ]);
 

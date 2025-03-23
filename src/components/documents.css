@@ -1,0 +1,84 @@
+.documents-container {
+  padding: 20px;
+  font-family: "Segoe UI", sans-serif;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.add-button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.filters {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.documents-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.document-card {
+  background-color: #f9f9f9;
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  transition: 0.3s;
+}
+
+.document-card:hover {
+  transform: translateY(-4px);
+}
+
+.doc-icon {
+  font-size: 30px;
+  margin-bottom: 10px;
+}
+
+.document-actions {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  gap: 5px;
+}
+
+.btn {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btn.download {
+  background-color: #2196F3;
+  color: white;
+}
+
+.btn.edit {
+  background-color: #FFC107;
+  color: white;
+}
+
+.btn.delete {
+  background-color: #F44336;
+  color: white;
+}
+.error-text {
+  color: red;
+  font-size: 14px;
+  margin-top: 3px;
+  margin-bottom: 6px;
+}
