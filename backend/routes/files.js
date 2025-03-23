@@ -1,4 +1,3 @@
-// routes/files.js
 const express = require('express');
 const router = express.Router();
 const multer = require('multer');
@@ -12,38 +11,41 @@ const storage = new CloudinaryStorage({
   params: {
     folder: 'ged_documents',
     resource_type: 'auto',
-    format: async (req, file) => 'pdf', // tu peux mettre undefined si tu veux garder le format original
-    public_id: (req, file) => Date.now() + '-' + file.originalname,
+    format: async (req, file) => undefined, // garder le format original
+    public_id: (req, file) => Date.now() + '-' + file.originalname, // Ajouter un identifiant unique basé sur le timestamp
   },
 });
 
 const upload = multer({ storage: storage });
 
-/* 📤 Route POST – Upload d’un document */
+/* 📤 POST – Upload document */
 router.post('/upload', upload.single('file'), async (req, res) => {
   try {
     const { filename, date, department, fileHash } = req.body;
     const fileUrl = req.file.path;
 
-    // 🔍 Vérification de doublon par fileHash
+    // 🔍 Vérifier doublon par fileHash
     const [existing] = await db.query('SELECT * FROM documents WHERE fileHash = ?', [fileHash]);
     if (existing.length > 0) {
       return res.status(409).json({ error: '❌ Un document avec le même contenu existe déjà.' });
     }
 
-    // 💾 Insertion dans la base de données (correction ici ✅)
-    const sql = `INSERT INTO documents (filename, date, department, cloudinaryUrl, fileHash)
-                 VALUES (?, ?, ?, ?, ?)`;
-    await db.query(sql, [filename, date, department, fileUrl, fileHash]);
+    // ✅ Extraire le public_id depuis req.file.filename (sans extension)
+    const public_id = req.file.filename.split('.')[0];
+
+    // 💾 Insertion en BDD
+    const sql = `INSERT INTO documents (filename, date, department, cloudinaryUrl, fileHash, public_id)
+                 VALUES (?, ?, ?, ?, ?, ?)`;
+    await db.query(sql, [filename, date, department, fileUrl, fileHash, public_id]);
 
     res.status(201).json({ message: '✅ Document uploadé avec succès' });
   } catch (error) {
-    console.error('❌ Erreur lors de l’upload :', error);
+    console.error('❌ Erreur upload :', error);
     res.status(500).json({ error: 'Erreur lors de l’upload du document' });
   }
 });
 
-/* 📥 Route GET – Récupérer tous les documents */
+/* 📥 GET – Tous les documents */
 router.get('/', async (req, res) => {
   try {
     const [rows] = await db.query('SELECT * FROM documents');
@@ -54,7 +56,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-/* ✏️ Route PUT – Modifier un document */
+/* ✏️ PUT – Modifier document */
 router.put('/:id', async (req, res) => {
   const docId = req.params.id;
   const { filename, date, department } = req.body;
@@ -69,24 +71,33 @@ router.put('/:id', async (req, res) => {
   }
 });
 
-/* 🗑️ Route DELETE – Supprimer un document (Cloudinary + BDD) */
+/* 🗑️ DELETE – Supprimer document (Cloudinary + BDD) */
 router.delete('/:id', async (req, res) => {
   const docId = req.params.id;
 
   try {
-    // 1️⃣ Récupérer l’URL du document
+    // 🔍 Récupérer le document depuis la base de données
     const [rows] = await db.query('SELECT * FROM documents WHERE id = ?', [docId]);
     if (rows.length === 0) {
       return res.status(404).json({ error: 'Document non trouvé' });
     }
 
+    const public_id = rows[0].public_id;
     const fileUrl = rows[0].cloudinaryUrl;
-    const publicId = fileUrl.split('/').pop().split('.')[0]; // extraire le public_id sans l’extension
 
-    // 2️⃣ Supprimer le fichier sur Cloudinary
-    await cloudinary.uploader.destroy(`ged_documents/${publicId}`);
+    console.log('🧨 Suppression Cloudinary avec public_id:', public_id);
 
-    // 3️⃣ Supprimer de la base de données
+    // 🧠 Déterminer le type du fichier (image ou autre)
+    const isImage = fileUrl.match(/\.(jpg|jpeg|png|gif|webp)$/i);
+    const resourceType = isImage ? 'image' : 'raw'; // Si c'est une image, on utilise 'image', sinon 'raw'
+
+    // 🚀 Encoder le public_id pour éviter les problèmes d'espaces ou caractères spéciaux
+    const encodedPublicId = encodeURIComponent(public_id);
+
+    // ✅ Supprimer depuis Cloudinary avec le bon type
+    await cloudinary.uploader.destroy(encodedPublicId, { resource_type: resourceType });
+
+    // ✅ Supprimer le document de la BDD
     await db.query('DELETE FROM documents WHERE id = ?', [docId]);
 
     res.status(200).json({ message: '🗑️ Document supprimé avec succès' });
@@ -97,3 +108,4 @@ router.delete('/:id', async (req, res) => {
 });
 
 module.exports = router;
+
