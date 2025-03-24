@@ -13,11 +13,11 @@
 }
 
 .sidebar.open {
-  width: 230px; 
+  width: 17%; 
 }
 
 .sidebar.closed {
-  width: 90px;
+  width: 6.6%;
 }
 
 .toggle-btn {
@@ -117,5 +117,5 @@
 }
 
 hr.separator {
-  border-color: #4b5563; /* gray-600 */
+  border-color: #009577; /* gray-600 */
 }
