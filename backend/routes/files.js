@@ -12,7 +12,10 @@ const storage = new CloudinaryStorage({
     folder: 'ged_documents',
     resource_type: 'auto',
     format: async (req, file) => undefined, // garder le format original
-    public_id: (req, file) => Date.now() + '-' + file.originalname, // Ajouter un identifiant unique basé sur le timestamp
+    public_id: (req, file) => {
+      const timestamp = Date.now();
+      return `${timestamp}-${file.originalname}`; // Conserver l'extension
+    },
   },
 });
 
@@ -23,15 +26,13 @@ router.post('/upload', upload.single('file'), async (req, res) => {
   try {
     const { filename, date, department, fileHash } = req.body;
     const fileUrl = req.file.path;
+    const public_id = req.file.filename; // Garder l'extension ici
 
     // 🔍 Vérifier doublon par fileHash
     const [existing] = await db.query('SELECT * FROM documents WHERE fileHash = ?', [fileHash]);
     if (existing.length > 0) {
       return res.status(409).json({ error: '❌ Un document avec le même contenu existe déjà.' });
     }
-
-    // ✅ Extraire le public_id depuis req.file.filename (sans extension)
-    const public_id = req.file.filename.split('.')[0];
 
     // 💾 Insertion en BDD
     const sql = `INSERT INTO documents (filename, date, department, cloudinaryUrl, fileHash, public_id)
@@ -82,20 +83,22 @@ router.delete('/:id', async (req, res) => {
       return res.status(404).json({ error: 'Document non trouvé' });
     }
 
-    const public_id = rows[0].public_id;
+    let public_id = rows[0].public_id;
     const fileUrl = rows[0].cloudinaryUrl;
 
     console.log('🧨 Suppression Cloudinary avec public_id:', public_id);
+
+    // ⚠️ Si `public_id` ne contient pas "ged_documents/", l'ajouter manuellement
+    if (!public_id.startsWith('ged_documents/')) {
+      public_id = `ged_documents/${public_id}`;
+    }
 
     // 🧠 Déterminer le type du fichier (image ou autre)
     const isImage = fileUrl.match(/\.(jpg|jpeg|png|gif|webp)$/i);
     const resourceType = isImage ? 'image' : 'raw'; // Si c'est une image, on utilise 'image', sinon 'raw'
 
-    // 🚀 Encoder le public_id pour éviter les problèmes d'espaces ou caractères spéciaux
-    const encodedPublicId = encodeURIComponent(public_id);
-
     // ✅ Supprimer depuis Cloudinary avec le bon type
-    await cloudinary.uploader.destroy(encodedPublicId, { resource_type: resourceType });
+    await cloudinary.uploader.destroy(public_id, { resource_type: resourceType });
 
     // ✅ Supprimer le document de la BDD
     await db.query('DELETE FROM documents WHERE id = ?', [docId]);
@@ -108,4 +111,3 @@ router.delete('/:id', async (req, res) => {
 });
 
 module.exports = router;
-
