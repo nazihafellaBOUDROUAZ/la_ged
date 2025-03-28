@@ -20,7 +20,7 @@ export default function Sidebar({ children }) {
 
   const Menus = useMemo(() => [
     { title: "Dashboard", src: home, path: "/dashboard" },
-    { title: "Departements", src: todo, path: "/ProjectsList" },
+    { title: "Departements", src: todo, path: "/departments" },
     { title: "Documents ", src: doc, path: "/documents" },
     { title: "Utilisateurs", src: check, path: "/Usersadmin" },
     { title: "Calendar", src: Calendar, path: "/calendar" },

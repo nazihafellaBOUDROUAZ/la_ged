@@ -1,6 +1,6 @@
 // UsersAdmin.jsx
 import React, { useEffect, useState } from "react";
-import { FaSearch, FaTrash } from "react-icons/fa";
+import { FaTrash } from "react-icons/fa";
 import "./usersadmin.css";
 import Sidebar from "./Sidebar";
 
@@ -115,11 +115,10 @@ export default function UsersAdmin() {
           <div className="search-box">
             <input
               type="text"
-              placeholder="Rechercher"
+              placeholder="Rechercher..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
             />
-            <FaSearch className="search-icon" />
           </div>
         </div>
 

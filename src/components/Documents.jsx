@@ -129,11 +129,9 @@ const Documents = () => {
     <div className="documents-container">
       <Sidebar>
         <div className="header">
-          <h2>Documents</h2>
-          <button className="add-button" onClick={() => setShowForm(true)}>
-            Ajouter un document
-          </button>
+          <h1>Documents</h1>
         </div>
+        
 
         <div className="filters">
           <input
@@ -142,28 +140,38 @@ const Documents = () => {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
-          <select value={filterDept} onChange={(e) => setFilterDept(e.target.value)}>
-            {departments.map((dept) => (
-              <option key={dept} value={dept}>
-                {dept}
-              </option>
-            ))}
-          </select>
         </div>
+        <button className="add-button" onClick={() => setShowForm(true)}>
+            Ajouter +
+          </button> 
+          <div className="deptname">
+                {departments.map((dept) => (
+             <button
+             key={dept}
+              onClick={() => setFilterDept(dept)}
+              className={filterDept === dept ? "active" : ""}
+             >
+                {dept}
+             </button>
+            ))}
+            </div>
+
+        
 
         <div className="documents-list">
           {filteredDocuments.map((doc) => (
             <div key={doc.id} className="document-card">
               <h4>{doc.filename}</h4>
               <p>Département : {doc.department}</p>
-              <p>Date : {doc.date}</p>
+              <p>Date : {doc.date.split("T")[0]}</p>
+
               <div className="document-actions">
                 {/* Bouton de téléchargement directement dans la même fenêtre */}
-                <button onClick={() => window.open(doc.cloudinaryUrl, "_blank", "noopener,noreferrer")}>
+                <button className="telecharger" onClick={() => window.open(doc.cloudinaryUrl, "_blank", "noopener,noreferrer")}>
                     Télécharger
                 </button>
 
-                      <button onClick={() => handleDelete(doc.id)}>Supprimer</button>
+                      <button className="supprimer" onClick={() => handleDelete(doc.id)}>Supprimer</button>
               </div>
             </div>
           ))}

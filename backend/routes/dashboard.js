@@ -5,11 +5,12 @@ const db = require('../db');
 router.get('/stats', async (req, res) => {
   try {
     const [results] = await db.query(`
-        SELECT
-          (SELECT COUNT(*) FROM employees WHERE role = 'admin') AS totalAdmins,
-          (SELECT COUNT(*) FROM employees WHERE role = 'user') AS totalUsers
-      `);
-    results[0].totalDocuments = 0; // valeur temporaire à 0
+      SELECT 
+        (SELECT COUNT(*) FROM employees WHERE role = 'admin') AS totalAdmins,
+        (SELECT COUNT(*) FROM employees WHERE role = 'user') AS totalUsers,
+        (SELECT COUNT(*) FROM documents) AS totalDocuments
+    `);
+
     res.json(results[0]);
 
   } catch (err) {
@@ -33,5 +34,21 @@ router.get('/recent-users', async (req, res) => {
     res.status(500).json({ error: 'Erreur serveur' });
   }
 });
+// ✅ Nouvelle route pour les 4 derniers documents ajoutés
+router.get('/recent-documents', async (req, res) => {
+  try {
+    const [rows] = await db.query(
+      `SELECT id, filename, department
+       FROM documents 
+       ORDER BY date DESC 
+       LIMIT 4`
+    );
+    res.json(rows);
+  } catch (err) {
+    console.error("Erreur récupération documents récents:", err);
+    res.status(500).json({ error: 'Erreur serveur' });
+  }
+});
+
 
 module.exports = router;

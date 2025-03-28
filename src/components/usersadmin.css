@@ -2,12 +2,11 @@
   font-size: 35px;
   color: #009577;
   position: fixed;           /* stays at the top */
-  left: 230px;
+  left: 224px;
   top:0;
   right: 0;            /* stays above everything else */
   background-color: white;
   border-bottom: 1px solid #ccc; /* simple gray bottom border */
-  box-shadow: 6 2px 4px ; /* optional soft shadow */
   box-shadow: 0 2px 4px rgba(197, 11, 11, 0.05); /* optional soft shadow */
   padding: 10px 20px;
 }
@@ -33,7 +32,7 @@
 
 .add-btn{
   border-radius: 20px;
-  margin-left: 83%;
+  margin-left: 81.5%;
   margin-top: 1%;
   border: 1px solid #ffffff;
   background-color: #009577;
@@ -184,9 +183,9 @@
   border-radius: 20px;
   margin-top: 4%;
   margin-left: 8px;
-  border: 1px solid #ffffff;
-  background-color: #a8e6cf;
-  color: #ffffff;
+  border: 1px solid #009577;
+  background-color: #ffffff;
+  color: #009577;
   font-size: 12px;
   font-weight: bold;
   padding: 10px 35px;

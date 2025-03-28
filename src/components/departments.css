@@ -1,0 +1,41 @@
+.departments-container {
+    text-align: center;
+    padding: 20px;
+  }
+  .departementsheader{
+    font-size: 35px;
+  color: #009577;
+  position: fixed;           /* stays at the top */
+  left: 224px;
+  top:0;
+  right: 0;            /* stays above everything else */
+  background-color: white;
+  border-bottom: 1px solid #ccc; /* simple gray bottom border */
+  box-shadow: 0 2px 4px rgba(197, 11, 11, 0.05); /* optional soft shadow */
+  padding: 10px 20px;
+  }
+  .departments-grid {
+    margin-top: 15%;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  
+  .department-box {
+    width: 200px;
+    height: 150px;
+    background: #f5f5f5;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .department-box:hover {
+    background: #ddd;
+  }
+  

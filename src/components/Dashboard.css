@@ -1,157 +1,271 @@
+/* ====== Styles Généraux ====== */
 .entete-admin{
-    font-size: 33px;
-    color: #009577;
-    position: fixed;           /* stays at the top */
-    left: 17%;
-    top:0;
-    right: 0;            /* stays above everything else */
-    background-color: white;
-    border-bottom: 1px solid #ccc; /* simple gray bottom border */
-    box-shadow: 0 2px 4px rgba(197, 11, 11, 0.05); /* optional soft shadow */
-    padding: 10px 20px;
-  }
-  .dash-section{
-    margin-top: 9%;
-    margin-left: 50px;
-    display: flex;
-    justify-content: space-between;
-    
-  }
-  .about-us{
-    display: flex;
-    justify-content: space-evenly;
-    background-color: #cccccc44;
-    border-radius: 20px;
-    padding: 15px 9px 1px 15px;
-  }
-  .left-sec{
-    width: 70%;
-  }
-  .about-us h2{
-    font-size: 19px;
-    color:#7E7E7E;
-    font-family: Poppins;
-    margin-bottom: 5px;
-  }
+  font-size: 33px;
+  color: #009577;
+  position: fixed;           /* stays at the top */
+  left: 17%;
+  top:0;
+  right: 0;            /* stays above everything else */
+  background-color: white;
+  border-bottom: 1px solid #ccc; /* simple gray bottom border */
+  box-shadow: 0 2px 4px rgba(197, 11, 11, 0.05); /* optional soft shadow */
+  padding: 10px 20px;
+}
+.dash-section {
+  margin-top: 70px;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 20px;
+}
 
-  .about-us p{
-    margin-top: 9px;
-    font-size: 14px;
-    font-family: Poppins;
-    color: #5E5E5E;
+.left-sec {
+  flex: 2;
+}
 
-  }
-  .about-us .savoire-plus{
-    margin-top: 20px;
-    margin-left: 20px;
-    padding: 8px 16px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    background-color: #009577;
-    color: #fff;
-    font-size: 14px;
-  }
-  .about-us .paragraphe{
-    margin-right: 30px;
-  }
-  .right-sec{
-   border-radius: 20px;
-   margin-right: 30px;
-   margin-top: 40px;
-   padding: 2%;
-   height: fit-content;
-  }
-  .activities-title {
-    font-size: 24px;
-    font-family: Actor;
-    margin-bottom: 15px;
-    color: #00261C;
-  }
-  
-  .activity-stats-container {
-    display: flex;
+.right-sec {
+  flex: 1;
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* ====== Section Bienvenue ====== */
+.about-us {
+  display: flex;
+  align-items: center;
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.about-us .paragraphe {
+  flex: 1;
+}
+
+.about-us h2 {
+  font-size: 22px;
+  color: #222;
+}
+
+.about-us h3 {
+  font-size: 20px;
+  color: #555;
+}
+
+.about-us p {
+  font-size: 14px;
+  color: #666;
+  margin: 10px 0;
+}
+
+.savoire-plus {
+  background: #009577;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.savoire-plus:hover {
+  background: #388e3c;
+}
+
+.about-us img {
+  width: 200px;
+  height: auto;
+}
+
+/* ====== Tableau des Utilisateurs Récents ====== */
+.users-recent {
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.recent-users {
+  background: #fff;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  overflow-x: auto;
+}
+
+.recent-users-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.recent-users-table thead {
+  background: #4caf50;
+  color: #fff;
+}
+
+.recent-users-table th, 
+.recent-users-table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.recent-users-table tbody tr:hover {
+  background: #f1f1f1;
+}
+
+.recent-users-table th {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.recent-users-table td {
+  font-size: 14px;
+  color: #555;
+}
+
+/* ====== Tableau des Documents Récents ====== */
+.docs-recent {
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+  margin: 20px 0 10px;
+}
+
+.recent-documents {
+  background: #fff;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  overflow-x: auto;
+}
+
+.recent-documents-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.recent-documents-table thead {
+  background: #ff9800;
+  color: #fff;
+}
+
+.recent-documents-table th, 
+.recent-documents-table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.recent-documents-table tbody tr:hover {
+  background: #f1f1f1;
+}
+
+.recent-documents-table th {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.recent-documents-table td {
+  font-size: 14px;
+  color: #555;
+}
+
+.right-sec {
+  background: #f9f9f9;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.activities-title {
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.activity-stats-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.activity-card {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease-in-out;
+}
+
+.activity-card:hover {
+  transform: scale(1.05);
+}
+
+.activity-icon {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 22px;
+  color: #fff;
+  margin-right: 15px;
+}
+
+.activity-info p {
+  font-size: 14px;
+  color: #666;
+  margin: 0;
+}
+
+.activity-info h4 {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+  margin: 5px 0 0;
+}
+
+/* Couleurs des cartes */
+.purple .activity-icon {
+  background: #7e57c2;
+}
+
+.green .activity-icon {
+  background: #4caf50;
+}
+
+.yellow .activity-icon {
+  background: #ffb300;
+}
+
+/* ====== Responsive Design ====== */
+@media (max-width: 768px) {
+  .dash-section {
     flex-direction: column;
-    gap: 15px;
   }
-  
-  .activity-card {
-    display: flex;
-    align-items: center;
-    background-color: #bff0e7;
-    border-radius: 15px;
-    padding: 12px;
-    gap: 12px;
-  }
-  
-  .activity-icon {
-    width: 45px;
-    height: 45px;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 20px;
-    color: #fff;
-  }
-  
-  .activity-info p {
-    margin: 0;
-    font-size: 15px;
-    font-weight: 500;
-    color: #333;
-  }
-  
-  .activity-info h4 {
-    margin: 0;
-    font-size: 16px;
-    font-weight: bold;
-    color: #000;
-  }
-  
-  .purple .activity-icon {
-    background-color: #a786f7;
-  }
-  
-  .green .activity-icon {
-    background-color: #60d7b7;
-  }
-  
-  .yellow .activity-icon {
-    background-color: #d8b561;
-  }
-  
-  .recent-users {
-    margin-top: 25px;
-    background-color: #fff;
-    padding: 15px;
-    border-radius: 12px;
-    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.37);
-  }
-  
-  
-  .recent-users-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.9rem;
-  }
-  
+
   .recent-users-table th,
-  .recent-users-table td {
-    padding: 10px 12px;
-    border-bottom: 1px solid #ddd;
-    text-align: left;
+  .recent-users-table td,
+  .recent-documents-table th,
+  .recent-documents-table td {
+    font-size: 12px;
+    padding: 8px;
   }
-  
-  .recent-users-table th {
-    background-color: #f7f7f7;
-    color: #444;
+
+  .activity-card {
+    flex-direction: column;
+    text-align: center;
   }
-  .users-recent{
-    color: #00261C;
-    margin-top: 30px;
-    max-width: 90%;
-     font-size: 1.2rem;
+
+  .activity-icon {
     margin-bottom: 10px;
   }
-  
+}

@@ -6,6 +6,8 @@ import Dashboard from "./components/Dashboard";
 import Usersadmin from "./components/Usersadmin";
 import Documents from "./components/Documents";
 import "./App.css";
+import Departments from "./components/Departments";
+import DepartmentDocuments from "./components/DepartmentDocuments";
 
 function App() {
   const router = createBrowserRouter([
@@ -28,6 +30,14 @@ function App() {
     {
       path: "/documents",
       element: <Documents />,
+    },
+    {
+      path: "/departments",
+      element: <Departments />,
+    },
+    { 
+      path:"/departments/:department" ,
+      element:<DepartmentDocuments />,
     },
   ]);
 

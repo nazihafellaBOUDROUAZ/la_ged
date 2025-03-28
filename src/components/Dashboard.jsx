@@ -12,6 +12,7 @@ function Dashboard() {
   });
 
   const [recentUsers, setRecentUsers] = useState([]); // ✅ Nouvel état pour les utilisateurs récents
+  const [recentDocuments, setRecentDocuments] = useState([]);
 
   useEffect(() => {
     // ✅ Récupération des statistiques
@@ -33,6 +34,14 @@ function Dashboard() {
         setRecentUsers(data);
       })
       .catch((err) => console.error("Erreur récupération utilisateurs récents:", err));
+      // ✅ Récupération des 4 derniers documents
+fetch("http://localhost:5000/api/dashboard/recent-documents")
+.then((res) => res.json())
+.then((data) => {
+  setRecentDocuments(data);
+})
+.catch((err) => console.error("Erreur récupération documents récents:", err));
+
   }, []);
 
   return (
@@ -79,6 +88,27 @@ function Dashboard() {
                 </tbody>
               </table>
             </div>
+            {/* ✅ Tableau des documents récents */}
+<h3 className='docs-recent'>Documents Récents :</h3>
+<div className='recent-documents'>
+  <table className="recent-documents-table">
+    <thead>
+      <tr>
+        <th>Nom du fichier</th>
+        <th>Département</th>
+      </tr>
+    </thead>
+    <tbody>
+      {recentDocuments.map((doc) => (
+        <tr key={doc.id}>
+          <td>{doc.filename}</td>
+          <td>{doc.department}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
+
           </div>
 
           {/* RIGHT SECTION */}

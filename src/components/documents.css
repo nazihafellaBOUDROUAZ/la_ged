@@ -1,33 +1,76 @@
 .documents-container {
-  padding: 20px;
-  font-family: "Segoe UI", sans-serif;
+  font-family: "Raleway", sans-serif;
+  margin-right: 20px;
 }
 
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
+.header{
+  font-size: 17.5px;
+  color: #009577;
+  position: fixed;           /* stays at the top */
+  left: 223px;
+  top:0;
+  right: 0;            /* stays above everything else */
+  background-color: white;
+  border-bottom: 1px solid #ccc; /* simple gray bottom border */
+  box-shadow: 0 2px 4px rgba(197, 11, 11, 0.05); /* optional soft shadow */
+  padding: 10px 20px;
+  font-family: 'Raleway';
 }
+
+.filters input{
+  margin-top: 90px;
+  margin-left: 20px;
+  border-radius: 20px;
+  width: 90%;
+  justify-content: center;
+  font-family: 'Raleway',sans-serif;
+}
+
 
 .add-button {
-  background-color: #4CAF50;
-  color: white;
-  padding: 10px 15px;
-  border: none;
-  border-radius: 8px;
+  border-radius: 20px;
+  margin-left: 83%;
+  margin-top: 1%;
+  border: 1px solid #ffffff;
+  background-color: #009577;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 10px 35px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: transform 80ms ease-in;
+  font-family: 'Raleway', sans-serif;
+  cursor: pointer;
+}
+.deptname button{
+  border-radius: 20px;
+  margin-top: 4%;
+  margin-left: 8px;
+  border: 1px solid #009577;
+  background-color: #ffffff;
+  color: #009577;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 10px 35px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: transform 80ms ease-in, background-color 150ms ease;
+  font-family: 'Raleway', sans-serif;
   cursor: pointer;
 }
 
-.filters {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
+.deptname button.active {
+  background-color: #009577;
+  color: #ffffff;
 }
 
+
 .documents-list {
+  margin-top: 4.5%;
+  margin-left: 15px;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(4,240px);
   gap: 20px;
 }
 
@@ -38,14 +81,16 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
   transition: 0.3s;
 }
-
+.document-card h4{
+  font-family: 'Raleway', sans-serif;
+  margin-bottom: 5%;
+}
+.document-card p{
+  margin-bottom: 3%;
+  font-size: 13px;
+}
 .document-card:hover {
   transform: translateY(-4px);
-}
-
-.doc-icon {
-  font-size: 30px;
-  margin-bottom: 10px;
 }
 
 .document-actions {
@@ -54,31 +99,41 @@
   justify-content: space-between;
   gap: 5px;
 }
-
-.btn {
-  padding: 5px 10px;
-  border: none;
-  border-radius: 6px;
+.telecharger{
+  border-radius: 20px;
+  border: 1px solid #009577;
+  background-color: #009577;
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: bold;
+  padding: 4px 6px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: transform 80ms ease-in, background-color 150ms ease;
+  font-family: 'Raleway', sans-serif;
+  cursor: pointer;
+}
+.supprimer{
+  border-radius: 20px;
+  border: 1px solid #F44336;
+  background-color:#F44336;
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: bold;
+  padding: 4px 6px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: transform 80ms ease-in, background-color 150ms ease;
+  font-family: 'Raleway', sans-serif;
   cursor: pointer;
 }
 
-.btn.download {
-  background-color: #2196F3;
-  color: white;
-}
-
-.btn.edit {
-  background-color: #FFC107;
-  color: white;
-}
-
-.btn.delete {
-  background-color: #F44336;
-  color: white;
-}
 .error-text {
   color: red;
   font-size: 14px;
   margin-top: 3px;
   margin-bottom: 6px;
+}
+.loading-text{
+  color: rgba(5, 5, 201, 0.904);
 }
