@@ -101,12 +101,17 @@ const Documents = () => {
       setLoading(false);
     }
   };
-
+  
+  
   const handleDelete = async (id) => {
     try {
-      await fetch(`http://localhost:5000/api/files/${id}`, {
+      const response = await fetch(`http://localhost:5000/api/files/${id}`, {
         method: "DELETE",
       });
+  
+      if (!response.ok) {
+        throw new Error("Erreur lors de la suppression.");
+      }
 
       setDocuments(documents.filter((doc) => doc.id !== id));
     } catch (error) {
@@ -153,10 +158,12 @@ const Documents = () => {
               <p>Département : {doc.department}</p>
               <p>Date : {doc.date}</p>
               <div className="document-actions">
-                <a href={doc.fileUrl} target="_blank" rel="noopener noreferrer">
-                  Télécharger
-                </a>
-                <button onClick={() => handleDelete(doc.id)}>Supprimer</button>
+                {/* Bouton de téléchargement directement dans la même fenêtre */}
+                <button onClick={() => window.open(doc.cloudinaryUrl, "_blank", "noopener,noreferrer")}>
+                    Télécharger
+                </button>
+
+                      <button onClick={() => handleDelete(doc.id)}>Supprimer</button>
               </div>
             </div>
           ))}
