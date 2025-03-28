@@ -17,10 +17,15 @@ const storage = new CloudinaryStorage({
       return `${timestamp}-${file.originalname}`;  // Utilisation du timestamp et du nom original du fichier pour générer l'ID public sur Cloudinary.
     },
     resource_type: (req, file) => {
-      // Déterminer le type de ressource basé sur l'extension du fichier.
       const fileExtension = file.originalname.split('.').pop().toLowerCase();
-      return fileExtension === 'pdf' ? 'raw' : 'image';  // Traiter les PDF comme 'raw' et les autres fichiers comme des images.
+      if (['jpg', 'jpeg', 'png', 'gif', 'webp'].includes(fileExtension)) {
+        return 'image'; // Images
+      } else if (['pdf', 'docx', 'doc', 'xlsx', 'pptx'].includes(fileExtension)) {
+        return 'raw'; // Documents
+      }
+      return 'auto'; // Autres types (Cloudinary détecte automatiquement)
     }
+    
   },
 });
 
@@ -100,18 +105,16 @@ router.delete('/:id', async (req, res) => {  // Route pour supprimer un document
     }
 
     // 🧠 Déterminer le type du fichier (image, pdf, ou autre)
-    const fileExtension = fileUrl.split('.').pop().toLowerCase();  // Extraction de l'extension du fichier.
-    let resourceType = 'raw';  // Type de ressource par défaut (pour les fichiers non-images).
+    const fileExtension = fileUrl.split('.').pop().toLowerCase();
+let resourceType = 'raw'; // Par défaut pour les fichiers autres qu'images
 
-    // If it's a known image format, set resource_type to 'image'
-    if (['jpg', 'jpeg', 'png', 'gif', 'webp'].includes(fileExtension)) {
-      resourceType = 'image';  // Si c'est une image, définir le type de ressource à 'image'.
-    } else if (fileExtension === 'pdf') {
-      resourceType = 'raw';  // Traiter les fichiers PDF comme 'raw'.
-    }
+if (['jpg', 'jpeg', 'png', 'gif', 'webp'].includes(fileExtension)) {
+  resourceType = 'image';
+} else if (['pdf', 'docx', 'doc', 'xlsx', 'pptx'].includes(fileExtension)) {
+  resourceType = 'raw';
+}
 
-    // ✅ Supprimer depuis Cloudinary avec le bon type
-    await cloudinary.uploader.destroy(public_id, { resource_type: resourceType });  // Suppression du fichier de Cloudinary avec le bon type de ressource.
+await cloudinary.uploader.destroy(public_id, { resource_type: resourceType });
 
     // ✅ Supprimer le document de la BDD
     await db.query('DELETE FROM documents WHERE id = ?', [docId]);  // Suppression du document de la base de données.
