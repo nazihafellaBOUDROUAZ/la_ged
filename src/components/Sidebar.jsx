@@ -1,34 +1,43 @@
 import React, { useState, useMemo } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom"; 
 import "./sidebar.css";
 
 import img from "../pictures/img.png";
 import logo from "../pictures/logoo.png";
 import home from "../pictures/home.png";
-import Calendar from "../pictures/Calendar.png";
 import todo from "../pictures/todo.png";
 import check from "../pictures/check.png";
-import notification from "../pictures/notification.png";
-import Setting from "../pictures/Setting.png";
-import support from "../pictures/support.png";
+import activites from "../pictures/activites.png";
+import Setting from "../pictures/setting.png";
+import saved from "../pictures/saved.png";
 import report from "../pictures/report.png";
 import doc from "../pictures/doc.png";
+import logoutIcon from "../pictures/logout.png"; // Add a logout icon
 
 export default function Sidebar({ children }) {
   const [open, setOpen] = useState(true);
   const location = useLocation();
+  const navigate = useNavigate(); // ✅ For redirecting after logout
 
   const Menus = useMemo(() => [
     { title: "Dashboard", src: home, path: "/dashboard" },
     { title: "Departements", src: todo, path: "/departments" },
-    { title: "Documents ", src: doc, path: "/documents" },
+    { title: "Documents", src: doc, path: "/documents" },
     { title: "Utilisateurs", src: check, path: "/Usersadmin" },
-    { title: "Calendar", src: Calendar, path: "/calendar" },
-    { title: "Notifications", src: notification, gap: true, path: "/notifications" },
+    { title: "Activités", src: activites, gap: true, path: "/activites" },
     { title: "Settings", src: Setting, path: "/settings" },
-    { title: "Support", src: support, path: "/support" },
-    { title: "Report", src: report, path: "/repport" },
+    { title: "Enregistrement", src: saved, path: "/enregistrement" },
+    { title: "Report", src: report, path: "/report" },
   ], []);
+
+  const handleLogout = () => {
+    // ✅ Remove token and user data
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+
+    // ✅ Redirect to login page
+    navigate("/signin");
+  };
 
   return (
     <div style={{ display: "flex" }}>
@@ -41,21 +50,14 @@ export default function Sidebar({ children }) {
           onClick={() => setOpen(!open)}
         />
         <div className="sidebar-logo-container">
-          <img
-            src={logo}
-            alt="Logo"
-            className={`sidebar-logo ${open ? "rotate" : ""}`}
-          />
+          <img src={logo} alt="Logo" className={`sidebar-logo ${open ? "rotate" : ""}`} />
         </div>
 
-        <hr className="separator" />
 
         <ul className="menu-list">
           {Menus.map((menu, index) => (
             <React.Fragment key={index}>
-              {menu.title === "Notifications" && (
-                <hr className="separator" />
-              )}
+              {menu.title === "Activités"}
               <Link to={menu.path} className={`menu-item ${location.pathname === menu.path ? "active" : ""} ${menu.gap ? "menu-gap" : ""}`}>
                 <img src={menu.src} alt={menu.title} />
                 <span className={`menu-text ${!open ? "hidden" : ""}`}>{menu.title}</span>
@@ -63,6 +65,12 @@ export default function Sidebar({ children }) {
             </React.Fragment>
           ))}
         </ul>
+
+        {/* ✅ Logout Button */}
+        <div className="logout-container" onClick={handleLogout}>
+          <img src={logoutIcon} alt="Logout" />
+          <span className={`menu-text ${!open ? "hidden" : ""}`}>Déconnexion</span>
+        </div>
       </div>
 
       {/* Main Content */}

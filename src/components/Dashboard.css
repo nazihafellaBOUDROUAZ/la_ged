@@ -14,8 +14,7 @@
 .dash-section {
   margin-top: 70px;
   display: flex;
-  justify-content: space-between;
-  gap: 20px;
+  gap: 7%;
   padding: 20px;
 }
 
@@ -23,13 +22,6 @@
   flex: 2;
 }
 
-.right-sec {
-  flex: 1;
-  background: #fff;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
 
 /* ====== Section Bienvenue ====== */
 .about-us {
@@ -126,7 +118,11 @@
   font-size: 14px;
   color: #555;
 }
-
+.plus{
+  color: blue;
+  margin-left: 90%;
+  margin-top: 10px;
+}
 /* ====== Tableau des Documents Récents ====== */
 .docs-recent {
   font-size: 20px;
@@ -175,9 +171,12 @@
 }
 
 .right-sec {
+  margin-top: 8%;
+  margin-right: 2%;
   background: #f9f9f9;
   padding: 20px;
   border-radius: 10px;
+  height: 60%;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
@@ -185,6 +184,7 @@
   font-size: 20px;
   font-weight: bold;
   color: #333;
+  text-align: center;
   margin-bottom: 15px;
 }
 

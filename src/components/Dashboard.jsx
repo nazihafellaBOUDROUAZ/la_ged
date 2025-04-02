@@ -45,20 +45,20 @@ fetch("http://localhost:5000/api/dashboard/recent-documents")
   }, []);
 
   return (
-    <div>
+    <div className='all'>
       <Sidebar>
         <h1 className='entete-admin'> Admin Dashboard </h1>
         <div className='dash-section'>
           <div className='left-sec'>
             <div className='about-us'>
               <div className='paragraphe'>
-                <h2>Bienvenu A</h2>
+                {/*<h2>Bienvenu A</h2>
                 <h3>Ton G.E.D :</h3>
                 <p>OU TU VAS COLABORER ET TROUVER TOUS VOS FICHIERS EN FORMAT <br /> ELECTRONIQUE</p>
                 <button className='savoire-plus'>Savoir plus</button>
               </div>
               <div>
-                <img src={img} alt="Dashboard illustration" />
+                <img src={img} alt="Dashboard illustration" />*/}
               </div>
             </div>
 
@@ -87,11 +87,12 @@ fetch("http://localhost:5000/api/dashboard/recent-documents")
                   ))}
                 </tbody>
               </table>
+              <a href="/Usersadmin" className="plus">Plus &gt;&gt;</a>
             </div>
             {/* ✅ Tableau des documents récents */}
 <h3 className='docs-recent'>Documents Récents :</h3>
 <div className='recent-documents'>
-  <table className="recent-documents-table">
+  <table className="recent-documents-table"> 
     <thead>
       <tr>
         <th>Nom du fichier</th>
@@ -107,6 +108,7 @@ fetch("http://localhost:5000/api/dashboard/recent-documents")
       ))}
     </tbody>
   </table>
+  <a href="/documents" className="plus">Plus &gt;&gt;</a>
 </div>
 
           </div>
@@ -145,6 +147,7 @@ fetch("http://localhost:5000/api/dashboard/recent-documents")
                   <h4>{stats.totalDocuments}</h4>
                 </div>
               </div>
+              <a href="/activites" className="plus">Plus &gt;&gt;</a>
             </div>
           </div>
         </div>

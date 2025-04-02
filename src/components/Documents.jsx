@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "./documents.css";
 import Sidebar from "./Sidebar";
+import saved from "../pictures/saved.png";
+
+import doc from "../pictures/doc.png";
 
 const Documents = () => {
   const [documents, setDocuments] = useState([]);
@@ -161,7 +164,11 @@ const Documents = () => {
         <div className="documents-list">
           {filteredDocuments.map((doc) => (
             <div key={doc.id} className="document-card">
-              <h4>{doc.filename}</h4>
+              <h4>{doc.filename} <button
+                                      className="">
+                                        <img alt="" src="doc"/>
+                                        enregistrer 
+                                    </button></h4>
               <p>Département : {doc.department}</p>
               <p>Date : {doc.date.split("T")[0]}</p>
 
