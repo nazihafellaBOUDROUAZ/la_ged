@@ -3,12 +3,17 @@ import { useNavigate } from "react-router-dom";
 import "./departments.css";
 import Sidebar from "./Sidebar";
 
-
 const Departments = () => {
   const [documents, setDocuments] = useState([]);
   const navigate = useNavigate();
   
-  const departments = ["RH", "INFO", "FINANCE", "MARKETING"];
+  const departments = [
+    { name: "RH", icon: "🌐", link: "/departments/RH" },
+    { name: "INFO", icon: "🖥️", link: "/departments/INFO" },
+    { name: "FINANCE", icon: "📑", link: "/departments/FINANCE" },
+    { name: "MARKETING", icon: "📊", link: "/departments/MARKETING" },
+    { name: "Ajouter un département", icon: "➕", isAddNew: true },
+  ];
 
   useEffect(() => {
     fetchDocuments();
@@ -29,23 +34,29 @@ const Departments = () => {
   };
 
   return (
-    <div><Sidebar>
-    <div className="departmentscon">
-      <h2 className="departementsheader">Départements</h2>
-      <div className="departments-grid">
-        {departments.map((dept) => (
-          <div 
-            key={dept} 
-            className="department-box" 
-            onClick={() => navigate(`/departments/${dept}`)}
-          >
-            <h3>{dept}</h3>
-            <p>{countDocumentsByDepartment(dept)} documents</p>
-          </div>
-        ))}
+    <div>
+      <Sidebar>
+      <div className="departmentscon">
+        <h2 className="departementsheader">Départements</h2>
+        <div className="departments-grid">
+          {departments.map((dept) => (
+            <div 
+              key={dept.name} 
+              className="department-card" 
+              onClick={() => dept.isAddNew ? navigate("/add-department") : navigate(dept.link)}
+            >
+              <div className="department-icon">{dept.icon}</div>
+              <h3>{dept.name}</h3>
+              {dept.isAddNew ? (
+                <button className="department-button">Ajouter département</button>
+              ) : (
+                <p>{countDocumentsByDepartment(dept.name)} documents</p>
+              )}
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
-    </Sidebar>
+      </Sidebar>
     </div>
   );
 };

@@ -1,5 +1,5 @@
 .documents-container {
-  font-family: "Raleway", sans-serif;
+  font-family: "Raleway";
   margin-right: 20px;
 }
 
@@ -78,7 +78,7 @@
   background-color: #f9f9f9;
   padding: 15px;
   border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 10px rgba(131, 129, 129, 0.596);
   transition: 0.3s;
 }
 .document-card h4{
@@ -87,12 +87,18 @@
 }
 .document-card p{
   margin-bottom: 3%;
-  font-size: 13px;
+  font-size: 12px;
+  color: gray;
 }
 .document-card:hover {
   transform: translateY(-4px);
 }
-
+.idkkk{
+  display: flex;
+  justify-content:space-around;
+  margin-bottom: 30px;
+  margin-top: 20px;
+}
 .document-actions {
   margin-top: 10px;
   display: flex;
@@ -102,32 +108,26 @@
 .telecharger{
   border-radius: 20px;
   border: 1px solid #009577;
-  background-color: #009577;
-  color: #ffffff;
-  font-size: 11px;
-  font-weight: bold;
+  color:#009577;
   padding: 4px 6px;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  transition: transform 80ms ease-in, background-color 150ms ease;
-  font-family: 'Raleway', sans-serif;
   cursor: pointer;
 }
 .supprimer{
   border-radius: 20px;
-  border: 1px solid #F44336;
-  background-color:#F44336;
-  color: #ffffff;
-  font-size: 11px;
-  font-weight: bold;
+  border: 1px solid #009577;
+  color:#009577;
   padding: 4px 6px;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  transition: transform 80ms ease-in, background-color 150ms ease;
   font-family: 'Raleway', sans-serif;
   cursor: pointer;
 }
-
+.bookmark{
+  border-radius: 20px;
+  border: 1px solid #009577;
+  color:#009577;
+  padding: 4px 6px;
+  font-family: 'Raleway', sans-serif;
+  cursor: pointer;
+}
 .error-text {
   color: red;
   font-size: 14px;
@@ -136,4 +136,8 @@
 }
 .loading-text{
   color: rgba(5, 5, 201, 0.904);
+}
+.file-icone{
+font-size: 40px;
+color:#d9534f;
 }

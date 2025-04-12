@@ -4,7 +4,7 @@ import { FaTrash } from "react-icons/fa";
 import "./usersadmin.css";
 import Sidebar from "./Sidebar";
 
-const departments = ["All", "RH", "INFO", "HHH", "JHBN", "DFGHJ"];
+const departments = ["All", "RH", "INFO", "finance", "marketing"];
 const roles = ["user", "admin"];
 
 export default function UsersAdmin() {
@@ -109,7 +109,7 @@ export default function UsersAdmin() {
   return (
     <div className="employee-page">
       <Sidebar>
-        <h1 className="title">Employés </h1>
+        <h1 className="title">Utilisateurs </h1>
 
         <div className="actions">
           <div className="search-box">

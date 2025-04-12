@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import Sidebar from "./Sidebar";
 import "./Dashboard.css";
 import { FaCrown, FaUsers, FaFileAlt } from 'react-icons/fa';
-import img from "../pictures/dash-imj.png";
 
 function Dashboard() {
   const [stats, setStats] = useState({

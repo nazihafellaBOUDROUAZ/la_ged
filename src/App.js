@@ -7,7 +7,11 @@ import Usersadmin from "./components/Usersadmin";
 import Documents from "./components/Documents";
 import "./App.css";
 import Departments from "./components/Departments";
+import Activites from "./components/Activites";
+import Enregistrement from "./components/Enregistrement";
 import DepartmentDocuments from "./components/DepartmentDocuments";
+import ReportPage from "./components/ReportPage";
+
 
 function App() {
   const router = createBrowserRouter([
@@ -18,6 +22,10 @@ function App() {
     {
       path: "/",
       element: <Welcome />,
+    },
+    {
+      path: "/ReportPage",
+      element: <ReportPage />,
     },
     {
       path: "/dashboard",
@@ -38,6 +46,14 @@ function App() {
     { 
       path:"/departments/:department" ,
       element:<DepartmentDocuments />,
+    },
+    {
+      path: "/Enregistrement",
+      element: <Enregistrement />,
+    },
+    {
+      path: "/Activites",
+      element: <Activites />,
     },
   ]);
 

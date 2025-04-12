@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./documents.css";
 import Sidebar from "./Sidebar";
-import saved from "../pictures/saved.png";
+import { FaBookmark,FaFileAlt,FaDownload,FaTrash} from "react-icons/fa";
 
-import doc from "../pictures/doc.png";
 
 const Documents = () => {
   const [documents, setDocuments] = useState([]);
@@ -105,6 +104,20 @@ const Documents = () => {
     }
   };
   
+  const handleBookmark = (doc) => {
+    const savedDocs = JSON.parse(localStorage.getItem("bookmarkedDocs")) || [];
+    const isAlreadyBookmarked = savedDocs.some((savedDoc) => savedDoc.id === doc.id);
+  
+    if (isAlreadyBookmarked) {
+      // Supprimer si déjà en favoris
+      const updatedDocs = savedDocs.filter((savedDoc) => savedDoc.id !== doc.id);
+      localStorage.setItem("bookmarkedDocs", JSON.stringify(updatedDocs));
+    } else {
+      // Ajouter aux favoris
+      savedDocs.push(doc);
+      localStorage.setItem("bookmarkedDocs", JSON.stringify(savedDocs));
+    }
+  };
   
   const handleDelete = async (id) => {
     try {
@@ -164,21 +177,26 @@ const Documents = () => {
         <div className="documents-list">
           {filteredDocuments.map((doc) => (
             <div key={doc.id} className="document-card">
-              <h4>{doc.filename} <button
-                                      className="">
-                                        <img alt="" src="doc"/>
-                                        enregistrer 
-                                    </button></h4>
-              <p>Département : {doc.department}</p>
-              <p>Date : {doc.date.split("T")[0]}</p>
-
+              <div className="idkkk">
+               <div>
+                 <FaFileAlt className="file-icone"/>
+               </div>
+               <div> 
+                   <h4>{doc.filename} </h4>
+                   <p>Département : {doc.department}</p>
+                   <p>Date : {doc.date.split("T")[0]}</p>
+                </div>
+              </div>
               <div className="document-actions">
                 {/* Bouton de téléchargement directement dans la même fenêtre */}
                 <button className="telecharger" onClick={() => window.open(doc.cloudinaryUrl, "_blank", "noopener,noreferrer")}>
-                    Télécharger
+                  <FaDownload/>
                 </button>
 
-                      <button className="supprimer" onClick={() => handleDelete(doc.id)}>Supprimer</button>
+                      <button className="supprimer" onClick={() => handleDelete(doc.id)}><FaTrash/> </button>
+                      <button className="bookmark" onClick={() => handleBookmark(doc)} >
+                <FaBookmark />
+              </button> 
               </div>
             </div>
           ))}

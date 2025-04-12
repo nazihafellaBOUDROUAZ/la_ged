@@ -1,0 +1,30 @@
+.report-page {
+    padding: 20px;
+    margin-top: 70px;
+  }
+  
+  .report-page form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .report-page label {
+    margin-top: 15px;
+  }
+  
+  .report-page input,
+  .report-page textarea,
+  .report-page select {
+    padding: 10px;
+    margin-top: 5px;
+  }
+  
+  .report-page button {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  

@@ -24,10 +24,10 @@ export default function Sidebar({ children }) {
     { title: "Departements", src: todo, path: "/departments" },
     { title: "Documents", src: doc, path: "/documents" },
     { title: "Utilisateurs", src: check, path: "/Usersadmin" },
-    { title: "Activités", src: activites, gap: true, path: "/activites" },
+    { title: "Activités", src: activites, gap: true, path: "/Activites" },
     { title: "Settings", src: Setting, path: "/settings" },
-    { title: "Enregistrement", src: saved, path: "/enregistrement" },
-    { title: "Report", src: report, path: "/report" },
+    { title: "Enregistrement", src: saved, path: "/Enregistrement" },
+    { title: "Report", src: report, path: "/ReportPage" },
   ], []);
 
   const handleLogout = () => {
@@ -52,7 +52,6 @@ export default function Sidebar({ children }) {
         <div className="sidebar-logo-container">
           <img src={logo} alt="Logo" className={`sidebar-logo ${open ? "rotate" : ""}`} />
         </div>
-
 
         <ul className="menu-list">
           {Menus.map((menu, index) => (

@@ -2,6 +2,8 @@ import "./signin.css"; // Import du fichier CSS pour le style
 import React, { useState } from "react"; // Import de React et du hook useState
 import { useNavigate } from "react-router-dom"; // Import du hook useNavigate pour rediriger après la connexion
 
+import logo from "../pictures/logoo.png";
+
 function SignIn() {
     // État pour déterminer si l'on est sur le formulaire Admin (true) ou Utilisateur (false)
     const [signIn, setSignIn] = useState(true);
@@ -43,7 +45,11 @@ function SignIn() {
     };
 
     return (
-        <div className="ggg">
+        <div>
+            <h1 className='welcome-tete'> 
+              <img src={logo} alt="Logo"/>
+            </h1>
+            <div className="ggg">
             {/* Conteneur principal avec classe conditionnelle pour l'effet de transition */}
             <div className={`container ${signIn ? "" : "sign-in-mode"}`}>
                 
@@ -53,7 +59,7 @@ function SignIn() {
                         <h1 className="Title">Se connecter en tant qu'Utilisateur</h1>
                         <input type="text" placeholder="Nom d'utilisateur" />
                         <input type="password" placeholder="Mot de passe" />
-                        <button>Sign In</button>
+                        <button className="sigin-sigin">Sign In</button>
                     </form>
                 </div>
 
@@ -81,7 +87,7 @@ function SignIn() {
                         />
 
                         {/* Bouton de connexion */}
-                        <button type="submit">Sign In</button>
+                        <button className="sigin-sigin" type="submit">Sign In</button>
                     </form>
                 </div>
 
@@ -109,6 +115,7 @@ function SignIn() {
                     </div>
                 </div>
             </div>
+        </div>
         </div>
     );
 }

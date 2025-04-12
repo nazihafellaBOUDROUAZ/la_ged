@@ -6,7 +6,7 @@
 }
 
 .ggg {
-  background: rgba(199, 197, 197, 0.466);
+  background: rgba(255, 255, 255, 0.466);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -127,7 +127,21 @@ width: 50%;
   font-family: 'Raleway', sans-serif;
   cursor: pointer;
 }
-
+.sigin-sigin{
+  border-radius: 15px;
+  margin-top: 30px;
+  border: 1px solid #009577;
+  background-color: #009577;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 12px 35px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: transform 80ms ease-in;
+  font-family: 'Raleway', sans-serif;
+  cursor: pointer;
+}
 button.ghost {
   background-color: transparent;
   border-color: #ffffff;

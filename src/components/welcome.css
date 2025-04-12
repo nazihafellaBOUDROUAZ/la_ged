@@ -1,0 +1,36 @@
+
+.welcome-tete img{
+    margin-top: -50px;
+    margin-bottom: -50px;
+    width: 170px;
+
+}
+.welcome-tete{
+    position: fixed;
+    background-color: #ffffff;
+    right: 0;
+    left:0;
+    border-bottom: 1px solid #ccc; /* simple gray bottom border */
+    box-shadow: 0 2px 4px rgba(197, 11, 11, 0.05); /* optional soft shadow */
+    display: flex;
+    justify-content: space-between;
+  }
+  .welcome-tete .signin-btn{
+    margin-right: 50px;
+    font-size: 15px;
+    border-radius: 20px;
+    border: 1px solid #ffffff;
+    background-color: #009577;
+    color: #ffffff;
+    font-weight: bold;
+    padding: 10px 35px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: transform 80ms ease-in;
+    font-family: 'Raleway', sans-serif;
+    cursor: pointer;
+  }
+  .welcome-pic{
+    width: 100%;
+    margin-top: 70px;
+  }

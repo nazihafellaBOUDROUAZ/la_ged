@@ -1,0 +1,26 @@
+.documentslist-name{
+  font-size: 33px;
+  color: #009577;
+  position: fixed;           /* stays at the top */
+  left: 17%;
+  top:0;
+  right: 0;            /* stays above everything else */
+  background-color: white;
+  border-bottom: 1px solid #ccc; /* simple gray bottom border */
+  box-shadow: 0 2px 4px rgba(197, 11, 11, 0.05); /* optional soft shadow */
+  padding: 10px 20px;
+}
+.documents-listt{
+    margin-top: 90px;
+   margin-left: 15px;
+   display: grid;
+   grid-template-columns: repeat(4,240px);
+   gap: 20px;
+}
+.document-card{
+  background-color: #f9f9f9;
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(131, 129, 129, 0.596);
+  transition: 0.3s;
+}
