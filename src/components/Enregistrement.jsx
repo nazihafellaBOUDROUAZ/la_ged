@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Sidebar from "./Sidebar";
 import "./Enregistrement.css";
-import { FaFileAlt,FaTrash} from "react-icons/fa";
+import { FaFileAlt,FaTrash,FaDownload} from "react-icons/fa";
 
 const Enregistrement = () => {
   const [bookmarkedDocs, setBookmarkedDocs] = useState([]);
@@ -20,7 +20,7 @@ const Enregistrement = () => {
   return (
     <div>
       <Sidebar>
-      <h1 className="documentslist-name">Documents Enregistrés</h1>
+      <h1 className="documentslist-name">Enregistrements</h1>
       <div className="documents-listt">
         {bookmarkedDocs.map((doc) => (
           <div key={doc.id} className="document-card">
@@ -38,6 +38,9 @@ const Enregistrement = () => {
               <button onClick={() => handleRemoveBookmark(doc.id)} className="supprimer">
                 <FaTrash /> Supprimer
                </button>
+               <button className="telecharger" onClick={() => window.open(doc.cloudinaryUrl, "_blank", "noopener,noreferrer")}>
+                <FaDownload/> Telecharger
+                               </button>
             </div>
           </div>
         ))}
